@@ -10,9 +10,12 @@ before((done) => {
 });
 
 beforeEach((done) => {
-	const { users } = mongoose.connection.collections;
+	const { users, comments, blogposts } = mongoose.connection.collections;
 	users.drop(() => {
-		//Ready to run the next test
-		done();
+		comments.drop(() => {
+			blogposts.drop(() => {
+				done();		
+			});
+		});
 	});
 });	
